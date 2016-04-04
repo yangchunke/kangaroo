@@ -31,6 +31,9 @@
 
 package net.yck.kangaroo.commons.parser;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * An expression that matches nonnegative numbers. This supports cron-like expressions, like
  * <code>1,3-6,100-200,666,1000-3000/5,400-/7</code>, <code>-100,102-</code> or <code>*</code>. Odd
@@ -152,5 +155,40 @@ public class NumberExpression {
       return max;
     }
   }
+
+  // =============================================
+  // YCK: Iterator
+  public Iterator<Integer> iterator() {
+    return new Iterator<Integer>() {
+
+      private Integer now = getMinimum();
+      private boolean hasMatch = matches(now);
+
+      @Override
+      public boolean hasNext() {
+        return hasMatch;
+      }
+
+      @Override
+      public Integer next() {
+        
+        if (null==now){
+          throw new NoSuchElementException();
+        }
+        
+        Integer ret = now;
+        Integer next = now;
+
+        do {
+          next = next + 1;
+        } while (next <= getMaximum() && !matches(next));
+
+        hasMatch = next <= getMaximum();
+        now = hasMatch ? next : null;
+        return ret;
+      }
+    };
+  }
+
 }
 
