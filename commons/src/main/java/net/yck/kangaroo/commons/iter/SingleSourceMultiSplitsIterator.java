@@ -23,8 +23,6 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 
-import net.yck.kangaroo.commons.util.LogUtil;
-
 public class SingleSourceMultiSplitsIterator<V, S> implements Iterator<V> {
 
   private final static Logger logger = LogManager.getLogger(SingleSourceMultiSplitsIterator.class);
@@ -53,7 +51,7 @@ public class SingleSourceMultiSplitsIterator<V, S> implements Iterator<V> {
       try {
         shouldBreak = strictOrder ? strictOrderCheck(currentQueue) : normalOrderCheck(currentQueue);
       } catch (Exception e) {
-        LogUtil.error(logger, () -> "hasNext", e);
+        logger.error(() -> "hasNext", e);
       }
 
       if (shouldBreak) {
@@ -115,7 +113,7 @@ public class SingleSourceMultiSplitsIterator<V, S> implements Iterator<V> {
     if (input != null) {
       ConcurrentLinkedQueue<V> queue = splitToQueueMap.get(splitter.apply(input));
       if (queue != null) {
-        LogUtil.debug(logger, () -> "append " + input + " to " + queue.toString());
+        logger.debug(() -> "append " + input + " to " + queue.toString());
         queue.add(input);
         shouldBreak = (currentQueue == queue);
       }
@@ -138,14 +136,13 @@ public class SingleSourceMultiSplitsIterator<V, S> implements Iterator<V> {
       throw new IllegalArgumentException(
           "threadId" + threadId + "has been occupied by split " + splitId);
     }
-    LogUtil.info(logger, () -> "register thread " + threadId + " with split " + splitId);
+    logger.info(() -> "register thread " + threadId + " with split " + splitId);
     threadToSplitMap.put(threadId, splitId);
   }
 
   private boolean readyToRun() {
     return threadToSplitMap.size() == splitToQueueMap.size();
   }
-
 
   public interface Splitter<V, S> extends Function<V, S> {
   }
@@ -232,7 +229,7 @@ public class SingleSourceMultiSplitsIterator<V, S> implements Iterator<V> {
 
           @Override
           public void onFailure(Throwable t) {
-            LogUtil.warn(logger, () -> "execute", t);
+            logger.warn(() -> "execute", t);
             cdl.countDown();
           }
         });
@@ -241,7 +238,7 @@ public class SingleSourceMultiSplitsIterator<V, S> implements Iterator<V> {
       try {
         cdl.await();
       } catch (InterruptedException e) {
-        LogUtil.error(logger, () -> "execute", e);
+        logger.error(() -> "execute", e);
       } finally {
         pool.shutdown();
       }

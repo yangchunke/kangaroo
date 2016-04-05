@@ -1,20 +1,21 @@
 package net.yck.kangaroo.commons.iter;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import net.yck.kangaroo.commons.parser.NumberExpression;
 
 public class SingleSourceMultiSplitsIteratorTestSuite {
 
   @Test
   public void test() {
 
-    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-    Iterator<Integer> source = list.iterator();
+    NumberExpression numExp = new NumberExpression("1-5");
+    final int size = numExp.getMaximum() - numExp.getMinimum() + 1;
+    Iterator<Integer> source = numExp.iterator();
     SingleSourceMultiSplitsIterator.Splitter<Integer, Integer> splitter = (Integer v) -> {
       return v;
     };
@@ -24,7 +25,7 @@ public class SingleSourceMultiSplitsIteratorTestSuite {
             .source(source)//
             .splitter(splitter);
 
-    for (int i = 1; i <= list.size(); i++) {
+    for (int i = 1; i <= size; i++) {
       final Integer id = i;
       builder
           .addConsumer(new SingleSourceMultiSplitsIterator.Consumer<Integer, Integer, Integer>() {
@@ -55,9 +56,7 @@ public class SingleSourceMultiSplitsIteratorTestSuite {
       Assert.assertEquals(id, sum);
     });
 
-    Assert.assertEquals(list.size(), results.size());
-
-
+    Assert.assertEquals(size, results.size());
   }
 
 }
