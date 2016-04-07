@@ -1,0 +1,4 @@
+@namespace("net.yck.kangaroo.db.service.avro")
+protocol DbService{
+  void ping();
+}
