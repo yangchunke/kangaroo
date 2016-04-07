@@ -84,27 +84,27 @@ public class Configurator {
     private String[] args;
     private final Options options = new Options();
 
-    Configurator build() {
+    public Configurator build() {
       return new Configurator(options).parseArgs(args);
     }
 
-    Builder args(String[] args) {
+    public Builder args(String[] args) {
       this.args = args;
       return this;
     }
 
-    Builder addSwitch(String opt, String longOpt, String desc) {
+    public Builder addSwitch(String opt, String longOpt, String desc) {
       options.addOption(Option.builder(opt).longOpt(longOpt).desc(desc).build());
       return this;
     }
 
-    <T> Builder addOption(String opt, String longOpt, String argName, String desc) {
+    public <T> Builder addOption(String opt, String longOpt, String argName, String desc) {
       options.addOption(
           Option.builder(opt).longOpt(longOpt).hasArg().argName(argName).desc(desc).build());
       return this;
     }
 
-    Builder addOption(Option opt) {
+    public Builder addOption(Option opt) {
       options.addOption(opt);
       return this;
     }

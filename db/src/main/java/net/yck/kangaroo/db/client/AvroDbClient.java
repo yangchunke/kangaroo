@@ -8,8 +8,9 @@ import org.apache.avro.ipc.NettyTransceiver;
 import org.apache.avro.ipc.specific.SpecificRequestor;
 
 import net.yck.kangaroo.db.service.avro.DbService;
+import net.yck.kangaroo.db.shared.IConfigurable;
 
-public class AvroDbClient implements net.yck.kangaroo.db.service.avro.DbService, AutoCloseable {
+public class AvroDbClient implements IConfigurable, DbService, AutoCloseable {
 
   private final NettyTransceiver client;
   private final DbService proxy;
@@ -31,7 +32,7 @@ public class AvroDbClient implements net.yck.kangaroo.db.service.avro.DbService,
   }
 
   @Override
-  public Void ping() throws AvroRemoteException {
+  public CharSequence ping() throws AvroRemoteException {
     return proxy.ping();
   }
 

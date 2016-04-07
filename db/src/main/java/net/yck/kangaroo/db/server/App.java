@@ -13,13 +13,37 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 
-public class App {
+import net.yck.kangaroo.db.shared.AppBase;
 
-  private final static Logger logger = LogManager.getLogger(App.class);
+public class App extends AppBase {
+
+  private final static Logger LOG = LogManager.getLogger(App.class);
+
+  ThriftDbServer thriftDbServer;
+  AvroDbServer avroDbServer;
 
   public static void main(String[] args) {
+    App app = new App(args);
+    try {
+      app.initialize();
+      app.start();
+    } catch (Exception e) {
+      LOG.fatal(() -> "failed to start the application.", e);
+    }
+  }
 
-    final List<Runnable> runnables = Arrays.asList(new ThriftDbServer(), new AvroDbServer());
+  App(String args[]) {
+    super(args);
+  }
+
+  void initialize() throws Exception {
+    thriftDbServer = (ThriftDbServer) new ThriftDbServer(this).initialize();
+    avroDbServer = (AvroDbServer) new AvroDbServer(this).initialize();
+  }
+
+  void start() {
+
+    final List<Runnable> runnables = Arrays.asList(thriftDbServer, avroDbServer);
 
     final ListeningExecutorService pool =
         MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(runnables.size()));
@@ -37,7 +61,7 @@ public class App {
 
         @Override
         public void onFailure(Throwable t) {
-          logger.warn(() -> "execute", t);
+          LOG.warn(() -> "execute", t);
           cdl.countDown();
         }
       });
@@ -46,10 +70,9 @@ public class App {
     try {
       cdl.await();
     } catch (InterruptedException e) {
-      logger.error(() -> "execute", e);
+      LOG.error(() -> "execute", e);
     } finally {
       pool.shutdown();
     }
   }
-
 }
