@@ -41,7 +41,7 @@ public abstract class DbServerBase extends App.Component implements Runnable {
             Properties p = new Properties();
             p.load(
                 new FileInputStream(ResourceUtil.getPathAsFile(this.getClass(), "version.txt")));
-            version = p.getProperty("version") + "." + p.getProperty("build.date");
+            version = p.getProperty("version") + ".v" + p.getProperty("build.date");
           } catch (IOException | URISyntaxException e) {
             version = "N/A";
             LogUtil.error(() -> "failed to load version", e);
