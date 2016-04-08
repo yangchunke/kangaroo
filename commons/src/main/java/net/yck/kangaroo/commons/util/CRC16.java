@@ -15,8 +15,9 @@ package net.yck.kangaroo.commons.util;
  * 
  * No XOR is performed on the output CRC
  */
-public class CRC16CCITT {
+public class CRC16 {
 
+  private static int INITIAL = 0xFFFF;
   private static int MASK = 0xFFFF;
   private static int POLY = 0x1021;
 
@@ -27,7 +28,7 @@ public class CRC16CCITT {
    *         http://stackoverflow.com/questions/13209364/convert-c-crc16-to-java-crc16
    */
   public static int fast_crc(final byte[] buffer) {
-    int crc = MASK;
+    int crc = INITIAL;
     for (int j = 0; j < buffer.length; j++) {
       crc = ((crc >>> 8) | (crc << 8)) & MASK;
       crc ^= (buffer[j] & 0xff);// byte to int, trunc sign
@@ -46,7 +47,7 @@ public class CRC16CCITT {
    *         http://srecord.sourceforge.net/crc16-ccitt.html#source
    */
   public static int good_crc(final byte[] buffer) {
-    int crc = MASK;
+    int crc = INITIAL;
     for (int j = 0; j < buffer.length; j++) {
       crc = update_good_crc(crc, buffer[j]);
     }
@@ -55,19 +56,14 @@ public class CRC16CCITT {
   }
 
   private static int update_good_crc(int crc, byte ch) {
-    int i, v, xor_flag;
-
     /*
      * Align test bit with leftmost bit of the message byte.
      */
-    v = 0x80;
+    int v = 0x80;
 
-    for (i = 0; i < 8; i++) {
-      if ((crc & 0x8000) != 0) {
-        xor_flag = 1;
-      } else {
-        xor_flag = 0;
-      }
+    for (int i = 0; i < 8; i++) {
+      boolean xor_flag = (crc & 0x8000) != 0;
+
       crc = crc << 1;
 
       if ((ch & v) != 0) {
@@ -78,7 +74,7 @@ public class CRC16CCITT {
         crc = crc + 1;
       }
 
-      if (xor_flag == 1) {
+      if (xor_flag) {
         crc = crc ^ POLY;
       }
 
@@ -91,18 +87,10 @@ public class CRC16CCITT {
   }
 
   private static int augment_message_for_good_crc(int crc) {
-    int xor_flag;
     for (int i = 0; i < 16; i++) {
-      if ((crc & 0x8000) != 0) {
-        xor_flag = 1;
-      } else {
-        xor_flag = 0;
-      }
+      boolean xor_flag = (crc & 0x8000) != 0;
       crc = crc << 1;
-
-      if (xor_flag == 1) {
-        crc = crc ^ POLY;
-      }
+      crc = xor_flag ? (crc ^ POLY) : crc;
     }
     return crc;
   }
