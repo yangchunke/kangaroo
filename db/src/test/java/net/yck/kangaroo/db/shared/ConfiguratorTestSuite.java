@@ -48,14 +48,30 @@ public class ConfiguratorTestSuite {
   }
 
   @Test
-  public void testConfigurationFromProperties() throws URISyntaxException, ParseException {
+  public void testConfigurationFromShortOptProperties() throws URISyntaxException, ParseException {
 
+    final String propHeader = "-" + Configurator.OPT_PROPERTY.getOpt();
     Configurator configurator = Configurator.builder()//
         .addOption(Configurator.OPT_PROPERTY)
         .args(new String[] {//
-            "-D" + PROP_HOST + "=" + VAL_HOST, //
-            "-D" + PROP_PORT + "=" + VAL_PORT.toString(), //
-            "-D" + PROP_LIVE + "=" + Boolean.toString(VAL_LIVE)})
+            propHeader + PROP_HOST + "=" + VAL_HOST, //
+            propHeader + PROP_PORT + "=" + VAL_PORT.toString(), //
+            propHeader + PROP_LIVE + "=" + Boolean.toString(VAL_LIVE)})
+        .build();
+
+    verify("testConfigurationFromProperties", configurator);
+  }
+
+  @Test
+  public void testConfigurationFromLongOptProperties() throws URISyntaxException, ParseException {
+
+    final String propHeader = "--" + Configurator.OPT_PROPERTY.getLongOpt();
+    Configurator configurator = Configurator.builder()//
+        .addOption(Configurator.OPT_PROPERTY)
+        .args(new String[] {//
+            propHeader, PROP_HOST + "=" + VAL_HOST, //
+            propHeader, PROP_PORT + "=" + VAL_PORT.toString(), //
+            propHeader, PROP_LIVE + "=" + Boolean.toString(VAL_LIVE)})
         .build();
 
     verify("testConfigurationFromProperties", configurator);

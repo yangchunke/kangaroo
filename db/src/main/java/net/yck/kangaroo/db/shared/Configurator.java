@@ -22,7 +22,7 @@ public class Configurator {
       Option.builder("c").longOpt("configuration").argName("configuration file").hasArg().build();
 
   public static Option OPT_PROPERTY =
-      Option.builder("D").longOpt("property").argName("property=value").hasArgs().build();
+      Option.builder("D").longOpt("property").argName("property=value").hasArgs().valueSeparator('=').build();
 
   private final Options options;
   private CommandLine line;
