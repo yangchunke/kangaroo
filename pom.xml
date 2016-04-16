@@ -37,9 +37,7 @@
   </properties>
 
   <modules>
-    <module>commons</module>
     <module>db</module>
-    <module>repl</module>
   </modules>
 
   <dependencies>

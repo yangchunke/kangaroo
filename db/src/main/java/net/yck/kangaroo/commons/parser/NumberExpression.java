@@ -42,7 +42,7 @@ import java.util.NoSuchElementException;
  * 
  * @author Michael Schierl
  */
-public class NumberExpression {
+public class NumberExpression implements Iterable<Integer> {
 
   private final NumberRange[] ranges;
   private final int min, max;
@@ -158,6 +158,7 @@ public class NumberExpression {
 
   // =============================================
   // YCK: Iterator
+  @Override
   public Iterator<Integer> iterator() {
     return new Iterator<Integer>() {
 

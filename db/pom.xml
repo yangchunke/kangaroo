@@ -16,11 +16,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>net.yck.kangaroo</groupId>
-      <artifactId>commons</artifactId>
-      <version>0.0.1</version>
-    </dependency>
-    <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>${commons-beanutils.version}</version>
@@ -49,6 +44,11 @@
       <groupId>org.apache.avro</groupId>
       <artifactId>avro-ipc</artifactId>
       <version>${avro.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.opencsv</groupId>
+        <artifactId>opencsv</artifactId>
+        <version>3.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.thrift</groupId>
