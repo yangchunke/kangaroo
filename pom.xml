@@ -5,7 +5,6 @@
   <groupId>net.yck</groupId>
   <artifactId>kangaroo</artifactId>
   <version>0.0.1</version>
-  <packaging>pom</packaging>
   <name>kangaroo</name>
   <description>kangaroo</description>
 
@@ -38,10 +37,6 @@
     <thrift.tools.version>0.1.11</thrift.tools.version>
     <zookeeper.version>3.4.8</zookeeper.version>
   </properties>
-
-  <modules>
-    <module>db</module>
-  </modules>
 
   <dependencies>
 
