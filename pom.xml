@@ -25,15 +25,16 @@
     <log4j.version>2.5</log4j.version>
     <guava.version>19.0</guava.version>
     <junit.version>4.11</junit.version>
-    <zookeeper.version>3.4.6</zookeeper.version>
     <mavenConflictResolvers>newest,nearest</mavenConflictResolvers>
     <maven.compiler.version>3.3</maven.compiler.version>
     <maven.surefire.version>2.19.1</maven.surefire.version>
     <avro.version>1.8.0</avro.version>
     <mapdb.version>3.0.0-M4</mapdb.version>
+    <opencsv.version>3.7</opencsv.version>
     <thrift.version>0.9.3</thrift.version>
     <thrift.executable>${env.HOME}/bin/thrift</thrift.executable>
     <thrift.tools.version>0.1.11</thrift.tools.version>
+    <zookeeper.version>3.4.8</zookeeper.version>
   </properties>
 
   <modules>
