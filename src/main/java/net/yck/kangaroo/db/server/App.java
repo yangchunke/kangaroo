@@ -17,10 +17,11 @@ import net.yck.kangaroo.db.shared.AppBase;
 
 public class App extends AppBase {
 
-  private final static Logger LOG = LogManager.getLogger(App.class);
+  final static Logger LOG = LogManager.getLogger(App.class);
 
   ThriftDbServer thriftDbServer;
   AvroDbServer avroDbServer;
+  ShutdownHook shutdownHook;
 
   public static void main(String[] args) {
     App app = new App(args);
@@ -39,6 +40,7 @@ public class App extends AppBase {
   void initialize() throws Exception {
     thriftDbServer = (ThriftDbServer) new ThriftDbServer(this).initialize();
     avroDbServer = (AvroDbServer) new AvroDbServer(this).initialize();
+    shutdownHook = (ShutdownHook) new ShutdownHook(this).initialize();
   }
 
   void start() {
