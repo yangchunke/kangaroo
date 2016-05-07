@@ -16,22 +16,21 @@ import org.apache.commons.lang3.StringUtils;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
 
-public class CSVReaderBuilder {
+public class CSVReaderBuilder implements IBuilder<CSVReader> {
 
-  public static char SEPARATOR_COMMA = ',';
-  public static char SEPARATOR_TAB = '\t';
+  public static char    SEPARATOR_COMMA = ',';
+  public static char    SEPARATOR_TAB   = '\t';
 
-  private static String SUFFIX_GZIPPED = ".gz";
+  private static String SUFFIX_GZIPPED  = ".gz";
 
-  private final String file;
+  private final String  file;
 
-  private char separator = CSVParser.DEFAULT_SEPARATOR;
-  private Charset charset = StandardCharsets.UTF_8;
-  private int skipLines = CSVReader.DEFAULT_SKIP_LINES;
-  private char quote = CSVParser.DEFAULT_QUOTE_CHARACTER;
+  private char          separator       = CSVParser.DEFAULT_SEPARATOR;
+  private Charset       charset         = StandardCharsets.UTF_8;
+  private int           skipLines       = CSVReader.DEFAULT_SKIP_LINES;
+  private char          quote           = CSVParser.DEFAULT_QUOTE_CHARACTER;
 
   public CSVReaderBuilder(String file) {
-    checkArgument(!StringUtils.isEmpty(file));
     this.file = file;
   }
 
@@ -60,14 +59,20 @@ public class CSVReaderBuilder {
     return this;
   }
 
-  public CSVReader build() throws IOException {
+  @Override
+  public CSVReader build() throws BuilderException {
+    try {
+      checkArgument(!StringUtils.isEmpty(file));
 
-    InputStream fis = new FileInputStream(file);
-    if (file.toLowerCase().endsWith(SUFFIX_GZIPPED)) {
-      fis = new GZIPInputStream(fis);
+      InputStream fis = new FileInputStream(file);
+      if (file.toLowerCase().endsWith(SUFFIX_GZIPPED)) {
+        fis = new GZIPInputStream(fis);
+      }
+
+      BufferedReader reader = new BufferedReader(new InputStreamReader(fis, charset));
+      return new CSVReader(reader, separator, quote, skipLines);
+    } catch (IOException e) {
+      throw new BuilderException(e);
     }
-
-    BufferedReader reader = new BufferedReader(new InputStreamReader(fis, charset));
-    return new CSVReader(reader, separator, quote, skipLines);
   }
 }
