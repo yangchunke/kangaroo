@@ -29,7 +29,7 @@
  * OF SUCH DAMAGE.
  */
 
-package net.yck.kangaroo.commons.parser;
+package net.yck.kangaroo.commons;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

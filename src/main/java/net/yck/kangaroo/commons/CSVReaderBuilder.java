@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.util;
+package net.yck.kangaroo.commons;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

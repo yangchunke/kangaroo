@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.util;
+package net.yck.kangaroo.commons;
 
 import java.io.File;
 import java.net.URISyntaxException;

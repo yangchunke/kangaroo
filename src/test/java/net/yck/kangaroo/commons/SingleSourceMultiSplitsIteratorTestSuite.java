@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.iter;
+package net.yck.kangaroo.commons;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -6,7 +6,8 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import net.yck.kangaroo.commons.parser.NumberExpression;
+import net.yck.kangaroo.commons.NumberExpression;
+import net.yck.kangaroo.commons.SingleSourceMultiSplitsIterator;
 
 public class SingleSourceMultiSplitsIteratorTestSuite {
 

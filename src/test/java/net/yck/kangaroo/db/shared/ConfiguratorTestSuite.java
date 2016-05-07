@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import net.yck.kangaroo.commons.util.ResourceUtil;
+import net.yck.kangaroo.commons.ResourceUtil;
 
 public class ConfiguratorTestSuite {
 

@@ -1,7 +1,9 @@
-package net.yck.kangaroo.commons.util;
+package net.yck.kangaroo.commons;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import net.yck.kangaroo.commons.CRC16;
 
 public class CRC16TestSuite {
 

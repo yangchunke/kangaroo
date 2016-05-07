@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.util;
+package net.yck.kangaroo.commons;
 
 /**
  * CRC16 implementation according to CCITT standards.

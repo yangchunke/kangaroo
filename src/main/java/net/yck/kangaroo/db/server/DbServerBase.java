@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.logging.log4j.Logger;
 
-import net.yck.kangaroo.commons.util.ResourceUtil;
+import net.yck.kangaroo.commons.ResourceUtil;
 import net.yck.kangaroo.db.shared.AppBase;
 
 public abstract class DbServerBase extends AppBase.Component implements Runnable {

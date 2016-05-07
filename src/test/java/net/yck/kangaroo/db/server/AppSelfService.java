@@ -2,7 +2,7 @@ package net.yck.kangaroo.db.server;
 
 import org.junit.BeforeClass;
 
-import net.yck.kangaroo.commons.util.ResourceUtil;
+import net.yck.kangaroo.commons.ResourceUtil;
 
 public abstract class AppSelfService {
   private final static Object lock = new Object();

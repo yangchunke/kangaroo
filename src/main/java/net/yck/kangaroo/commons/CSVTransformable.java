@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.collection;
+package net.yck.kangaroo.commons;
 
 import java.util.Iterator;
 

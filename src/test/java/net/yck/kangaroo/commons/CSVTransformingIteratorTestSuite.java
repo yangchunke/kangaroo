@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.iter;
+package net.yck.kangaroo.commons;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,8 +10,9 @@ import org.junit.Test;
 
 import com.opencsv.CSVReader;
 
-import net.yck.kangaroo.commons.util.CSVReaderBuilder;
-import net.yck.kangaroo.commons.util.ResourceUtil;
+import net.yck.kangaroo.commons.CSVReaderBuilder;
+import net.yck.kangaroo.commons.CSVTransformingIterator;
+import net.yck.kangaroo.commons.ResourceUtil;
 
 public class CSVTransformingIteratorTestSuite {
 

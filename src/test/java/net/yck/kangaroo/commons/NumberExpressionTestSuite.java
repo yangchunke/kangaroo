@@ -1,4 +1,4 @@
-package net.yck.kangaroo.commons.parser;
+package net.yck.kangaroo.commons;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import net.yck.kangaroo.commons.NumberExpression;
 
 public class NumberExpressionTestSuite {
 
