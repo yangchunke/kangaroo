@@ -2,7 +2,9 @@ package net.yck.kangaroo.db.server;
 
 import org.apache.logging.log4j.Logger;
 
-public class ShutdownHook extends App.Component implements Runnable {
+import net.yck.kangaroo.db.shared.AppBase;
+
+public class ShutdownHook extends AppBase.Component implements Runnable {
 
   private final static Logger LOG = App.LOG;
 
@@ -16,7 +18,7 @@ public class ShutdownHook extends App.Component implements Runnable {
   }
 
   @Override
-  public App.Component initialize() throws Exception {
+  public AppBase.Component initialize() throws Exception {
     Runtime.getRuntime().addShutdownHook(new Thread(this));
     return this;
   }

@@ -10,9 +10,9 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.logging.log4j.Logger;
 
 import net.yck.kangaroo.commons.util.ResourceUtil;
-import net.yck.kangaroo.db.shared.AppBase.Component;
+import net.yck.kangaroo.db.shared.AppBase;
 
-public abstract class DbServerBase extends App.Component implements Runnable {
+public abstract class DbServerBase extends AppBase.Component implements Runnable {
 
   private final static Logger LOG = App.LOG;
   
@@ -24,7 +24,7 @@ public abstract class DbServerBase extends App.Component implements Runnable {
   }
 
   @Override
-  public Component initialize() throws Exception {
+  public AppBase.Component initialize() throws Exception {
     port = app.config.getProperty(getPortProperty().left, getPortProperty().right);
     return this;
   }

@@ -22,7 +22,7 @@
     <java.version>1.8</java.version>
     <junit.version>4.11</junit.version>
     <log4j.version>2.5</log4j.version>
-    <mapdb.version>3.0.0-M5</mapdb.version>
+    <mapdb.version>3.0.0-M6</mapdb.version>
     <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
     <maven.compiler.version>3.3</maven.compiler.version>
     <maven.surefire.version>2.19.1</maven.surefire.version>

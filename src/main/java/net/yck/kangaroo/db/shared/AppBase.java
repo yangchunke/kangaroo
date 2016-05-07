@@ -1,7 +1,5 @@
 package net.yck.kangaroo.db.shared;
 
-import net.yck.kangaroo.db.server.App;
-
 public abstract class AppBase {
 
   public final Configurator config;
@@ -17,9 +15,9 @@ public abstract class AppBase {
 
   public abstract static class Component implements IConfigurable {
 
-    public final App app;
+    public final AppBase app;
 
-    protected Component(App app) {
+    protected Component(AppBase app) {
       this.app = app;
     }
 

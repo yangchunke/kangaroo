@@ -28,6 +28,7 @@ public class CSVReaderBuilder {
   private char separator = CSVParser.DEFAULT_SEPARATOR;
   private Charset charset = StandardCharsets.UTF_8;
   private int skipLines = CSVReader.DEFAULT_SKIP_LINES;
+  private char quote = CSVParser.DEFAULT_QUOTE_CHARACTER;
 
   public CSVReaderBuilder(String file) {
     checkArgument(!StringUtils.isEmpty(file));
@@ -54,6 +55,11 @@ public class CSVReaderBuilder {
     return this;
   }
 
+  public CSVReaderBuilder quote(char quote) {
+    this.quote = quote;
+    return this;
+  }
+
   public CSVReader build() throws IOException {
 
     InputStream fis = new FileInputStream(file);
@@ -62,6 +68,6 @@ public class CSVReaderBuilder {
     }
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(fis, charset));
-    return new CSVReader(reader, separator, CSVParser.DEFAULT_QUOTE_CHARACTER, skipLines);
+    return new CSVReader(reader, separator, quote, skipLines);
   }
 }
